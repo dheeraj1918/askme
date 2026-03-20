@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+.circle-container {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    background-color: transparent;
+}
+
+.circle-quad {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* Anchored positioning */
+.quad-1 { top: 0; left: 0; border-radius: 100% 0 0 0; }
+.quad-2 { top: 0; right: 0; border-radius: 0 100% 0 0; }
+.quad-3 { bottom: 0; left: 0; border-radius: 0 0 0 100%; }
+.quad-4 { bottom: 0; right: 0; border-radius: 0 0 100% 0; }
+
+.circle-quad.active {
+    width: 800px;
+    height: 800px;
+    z-index: 100;
+    border-radius: 0 !important;
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+/* Centering Logic: The wrapper is 800px wide and offset 
+   to stay perfectly centered regardless of which quad is active */
+.content-wrapper {
+    position: absolute;
+    width: 800px; 
+    height: 400px; /* Matches the quad height to keep vertical alignment */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Offset the content so it appears centered in the 400x400 quarter initially */
+.quad-1 .content-wrapper { left: 0; top: 0; width: 400px; }
+.quad-2 .content-wrapper { right: 0; top: 0; width: 400px; }
+.quad-3 .content-wrapper { left: 0; bottom: 0; width: 400px; }
+.quad-4 .content-wrapper { right: 0; bottom: 0; width: 400px; }
+
+/* When active, make the content occupy the full 800px space */
+.circle-quad.active .content-wrapper {
+    width: 800px;
+    height: 800px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.input-area {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
